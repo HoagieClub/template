@@ -1,4 +1,4 @@
-# Hoagie Meal
+# Hoagie Meal Frontend
 This is the repository for Hoagie Meal, a web app that sends 
 emails to undergraduate listservs. It supports authentication using JWT tokens through the Hoagie and CAS system.
 

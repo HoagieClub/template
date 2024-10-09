@@ -1,3 +1,0 @@
-```js
-<Nav name="test" />
-```
