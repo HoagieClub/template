@@ -1,43 +1,39 @@
-# Hoagie Meal
-This is the repository for Hoagie Meal, a web app that sends 
-emails to undergraduate listservs. It supports authentication using JWT tokens through the Hoagie and CAS system.
+# Hoagie Template
 
-## Local Development
-1. First, clone the repository with the following. You will need to [setup GitHub SSH keys](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh) to successfully run this command. 
-```
-git clone https://github.com/HoagieClub/mail.git
-```
-2. Run the [Hoagie API](https://github.com/HoagieClub/api) locally.
-3. Rename `.env.local.txt` file to `.env.local'
-4. Get the dependencies with:
-```
-yarn
-```
-5. You can now run the server with
-```
-yarn dev
-```
-That's it! Hoagie Meal can now be accessed with `http://localhost:3000`.
+Hoagie Club's app template repository.
 
-## VSCode
-We use VSCode for development. Please install the following packages:
+## Getting Started
 
-1. [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-1. [Live Share](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)
+### Prerequisites
 
-ESLint is particularly important, if everything is installed correctly, it will allow you to see style errors inside the editor which we use to make sure our code is tidy and consistent throughout the codebase (same as output from `yarn lint`).
-## Contribution
-**Always create new branches when adding new features.** For example, let's say I am adding a delete button. I would do:
-```
-# Switch to new branch called delete-button
-git checkout -b delete-button
+Before you begin, ensure you have [Bun](https://bun.sh/) installed. You can install Bun via [Homebrew](https://brew.sh/) using the following command:
+
+```bash
+brew install bun
 ```
 
-When the main branch get updated, you want to run the following:
+### Installation
+
+To install the necessary dependencies, run:
+
+```bash
+bun install
 ```
-# If there were any new commits, rebase your development branch, for example delete-button
-git checkout delete-button
-git pull --rebase main
+
+### Running the App
+
+Once the dependencies are installed, you can start the development server by running:
+
+```bash
+bun run dev
 ```
-You may have to deal with merge conflicts; this will be visible and easier to deal with in VSCode. Here's a [short video about how to do it](https://www.youtube.com/watch?v=QmKdodJU-js).
-```
+
+The app will now be running locally, and you can view it in your browser at localhost:3000.
+
+### Backend
+
+The backend setup depends on the specific Hoagie Club app you're working on. Refer to the app-specific [documentation](https://docs.hoagie.io/) for backend details.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.

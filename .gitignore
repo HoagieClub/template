@@ -200,6 +200,9 @@ temp/
 # Ignore mock files (if not to be committed)
 /frontend/mock/
 
+# HTTPS Certificate
+/frontend/certificates/
+
 # ===============================
 # Custom Ignored Files
 # ===============================

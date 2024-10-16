@@ -1,5 +1,5 @@
 /**
- * @overview PostCSS configurations for the template app.
+ * @overview Type definitions for the template app.
  *
  * Copyright © 2021-2024 Hoagie Club and affiliates.
  *
@@ -10,11 +10,15 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-module.exports = {
-  plugins: {
-    'postcss-import': {},
-    'tailwindcss/nesting': {},
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+import 'evergreen-ui';
+
+declare module 'evergreen-ui' {
+  interface DefaultTheme {
+    title: string;
+  }
+}
+
+export type HoagieUser = {
+  name?: string;
+  email?: string;
 };

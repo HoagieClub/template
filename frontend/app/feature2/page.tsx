@@ -1,6 +1,18 @@
+/**
+ * @overview Sample page 2 for the template app.
+ *
+ * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ *
+ * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
+ */
+
 'use client';
 
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import {
   Pane,
   Heading,
@@ -13,13 +25,36 @@ import {
   majorScale,
 } from 'evergreen-ui';
 import { toast } from 'sonner';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
-export default function SimpleEvergreenTemplate() {
+/**
+ * A React component that renders a form for user interaction, allowing users to input their name
+ * and select an option from a dropdown menu. It uses Evergreen UI components for styling and
+ * integrates with Auth0 for user authentication. The form submission triggers an async action that
+ * simulates an API call and provides feedback through toast notifications.
+ *
+ * @returns {JSX.Element} The form component with user interaction elements.
+ */
+export default function Feature2() {
+  const { user, error, isLoading } = useUser();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
   const [selectedOption, setSelectedOption] = useState('');
   const [formError, setFormError] = useState('');
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  /**
+   * Validates the form input to ensure both the name and selected option are provided.
+   *
+   * @returns {boolean} Returns `true` if the form is valid, otherwise `false`.
+   */
   const validateForm = (): boolean => {
     if (!name.trim()) {
       setFormError('Please enter your name.');
@@ -33,6 +68,10 @@ export default function SimpleEvergreenTemplate() {
     return true;
   };
 
+  /**
+   * Handles the form submission, validates the form, triggers an async action to simulate an API call,
+   * and displays success or error feedback via toast notifications.
+   */
   const handleSubmit = async () => {
     if (!validateForm()) return;
 
@@ -59,7 +98,18 @@ export default function SimpleEvergreenTemplate() {
     }
   };
 
+  /**
+   * Updates the `name` state when the input value changes.
+   *
+   * @param {ChangeEvent<HTMLInputElement>} e - The event triggered by changing the input value.
+   */
   const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => setName(e.target.value);
+
+  /**
+   * Updates the `selectedOption` state when the dropdown value changes.
+   *
+   * @param {ChangeEvent<HTMLSelectElement>} e - The event triggered by selecting an option.
+   */
   const handleOptionChange = (e: ChangeEvent<HTMLSelectElement>) =>
     setSelectedOption(e.target.value);
 
@@ -71,7 +121,7 @@ export default function SimpleEvergreenTemplate() {
       marginTop={majorScale(8)}
     >
       <Heading size={700} marginBottom={majorScale(2)}>
-        Simple Component
+        Hi, {user?.name}
       </Heading>
 
       <TextInputField

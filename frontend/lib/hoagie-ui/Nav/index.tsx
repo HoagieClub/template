@@ -1,5 +1,18 @@
+/**
+ * @overview Navigation bar for the template app with a stateful profile.
+ *
+ * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ *
+ * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
+ */
+
 'use client';
 
+import { ComponentType } from 'react';
 import {
   majorScale,
   Pane,
@@ -11,40 +24,28 @@ import {
   Tab,
   useTheme,
 } from 'evergreen-ui';
-import { ComponentType } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import ProfileCard from '../ProfileCard';
+import ProfileCard from '@/lib/hoagie-ui/ProfileCard';
+import { UserProfile } from '@auth0/nextjs-auth0/client';
 
-type NavProps = {
-  /**
-   * The name of the app for generating the `hoagie{name}` title.
-   */
+export type Nav = {
+  // The name of the app for generating the `hoagie{name}` title.
   name: string;
 
-  /**
-   * A custom component to be used in place of the hoagie logo.
-   */
+  // A custom component to be used in place of the hoagie logo.
   LogoComponent?: ComponentType;
 
-  /**
-   * A custom component to be used in place of the header color strip.
-   */
+  // A custom component to be used in place of the header color strip.
   HeaderComponent?: ComponentType;
 
-  /**
-   * A list of tab objects for the navbar, each with `title` and `href` fields.
-   */
+  // A list of tab objects for the navbar, each with `title` and `href` fields.
   tabs?: Array<any>;
 
-  /**
-   * Authenticated user data.
-   */
-  user?: any;
+  // Authenticated user data.
+  user?: UserProfile;
 
-  /**
-   * A flag to show the "beta" development disclaimer on the hoagie app logo.
-   */
+  // A flag to show the "beta" development disclaimer on the hoagie app logo.
   beta?: boolean;
 };
 
@@ -52,11 +53,11 @@ type NavProps = {
  * Nav is a navbar meant for internal navigations throughout
  * different Hoagie applications.
  */
-function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = false }: NavProps) {
+function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = false }: Nav) {
   const theme = useTheme();
   const router = useRouter();
   const pathname = usePathname();
-  const uName = user?.isLoading ? 'Tammy Tiger' : (user?.user?.name ?? 'Tammy Tiger');
+  const username = user?.name;
 
   return (
     <Pane elevation={1}>
@@ -112,15 +113,16 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
                   isSelected={pathname === tab.href}
                   appearance='primary'
                   onSelect={() => router.push(tab.href)} // Use onSelect for navigation
+                  fontSize={14}
                 >
                   {tab.title}
                 </Tab>
               ))}
             </TabNavigation>
-            {user?.user && (
+            {user && (
               <Popover content={<ProfileCard user={user} />} position={Position.BOTTOM}>
                 <Avatar
-                  name={uName}
+                  name={username}
                   style={{ cursor: 'pointer' }}
                   color={theme.title}
                   size={40}

@@ -1,14 +1,23 @@
+/**
+ * @overview Landing page for the template app.
+ * 
+ * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ *
+ * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software. This software is provided "as-is", without warranty of any kind.
+ */
+
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import {
   Pane,
   majorScale,
   minorScale,
   Heading,
   Spinner,
-  CodeIcon,
   ArrowRightIcon,
   ArrowLeftIcon,
   Button,
@@ -63,13 +72,11 @@ export default function Index() {
         paddingTop={majorScale(5)}
         paddingBottom={majorScale(7)}
       >
-        <CodeIcon size={48} color='gray800' />
         <Heading size={900} className='hoagie'>
           Hoagie Template App
           <br />
-          The next <b>big</b> thing.
+          What will <b>you</b> build?
         </Heading>
-        <p>Build something people want.</p>
         <div>
           <Pane display='flex' flexDirection='column' alignItems='center' marginTop='30px'>
             {Profile}
@@ -92,6 +99,7 @@ export default function Index() {
             <br />
           </Pane>
         </div>
+        <div>© 2024 Hoagie Club.</div>
       </Pane>
     </Pane>
   );

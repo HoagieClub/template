@@ -1,8 +1,23 @@
+/**
+ * @overview Standardized error handling component for the template app.
+ * 
+ * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
+ *
+ * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
+ */
+
+'use client';
+
 import React from 'react';
 import { Alert } from 'evergreen-ui';
 
 export type ErrorWithMessage = {
   message: string;
+  status?: number;
 };
 
 // Type guard to check if an error has a message
@@ -20,11 +35,18 @@ function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
   if (isErrorWithMessage(maybeError)) return maybeError;
 
   try {
-    return new Error(JSON.stringify(maybeError));
+    const error = new Error(JSON.stringify(maybeError));
+    // Check if the error has a 'status' property and attach it
+    if ((maybeError as Record<string, unknown>).status) {
+      return {
+        message: error.message,
+        status: (maybeError as Record<string, unknown>).status as number,
+      };
+    }
+    return { message: error.message };
   } catch {
-    // fallback in case there's an error stringifying the maybeError
-    // like with circular references for example.
-    return new Error(String(maybeError));
+    // Fallback if stringification fails (e.g., circular reference errors)
+    return { message: String(maybeError) };
   }
 }
 
