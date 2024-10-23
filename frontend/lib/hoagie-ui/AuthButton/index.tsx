@@ -11,7 +11,7 @@
  */
 
 import {
-    Button, Pane, majorScale, minorScale,
+    Button, Pane, majorScale, minorScale, useTheme,
 } from 'evergreen-ui'
 
 interface AuthButtonProps {
@@ -28,6 +28,7 @@ function AuthButton({
     variant = 'login',
     href = '',
 }:AuthButtonProps) {
+    const theme = useTheme();
     const logo = (
         <h2
             style={{
@@ -47,7 +48,7 @@ function AuthButton({
             <Button
                 height={56}
                 width={majorScale(35)}
-                background="purple600"
+                background={theme.colors.white}
                 appearance={isLogout ? 'default' : 'primary'}
             >
                 { logo }

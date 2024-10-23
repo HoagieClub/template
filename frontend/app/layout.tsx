@@ -51,12 +51,11 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
   ];
 
   return (
-    <Theme palette='purple'>
+    <Theme palette='blue'>
       <Layout>
         <Nav name='template' tabs={tabs} user={user} />
         {children}
         <Toaster />
-        <Footer />
       </Layout>
     </Theme>
   );

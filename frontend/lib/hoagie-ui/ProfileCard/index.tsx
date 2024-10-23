@@ -25,7 +25,7 @@ function ProfileCard({ user }: { user: UserProfile }) {
   return (
     <Card
       elevation={1}
-      background='gray50'
+      backgroundColor={theme.colors.gray50}
       padding={majorScale(3)}
       maxWidth={majorScale(30)}
       borderRadius={8}
@@ -33,7 +33,7 @@ function ProfileCard({ user }: { user: UserProfile }) {
       flexDirection='column'
       alignItems='center'
     >
-      <Avatar name={name} color={theme.title} size={40} />
+      <Avatar name={name} backgroundColor={theme.colors.blue100} size={40} />
       <Heading size={500} marginTop={majorScale(1)}>
         {name}
       </Heading>

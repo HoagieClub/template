@@ -36,7 +36,6 @@ function Theme({ palette = 'purple', children }: ThemeProps) {
         return hoagiePurple;
       case 'orange':
         return hoagieOrange;
-      case 'blue':
       default:
         return hoagieUI;
     }

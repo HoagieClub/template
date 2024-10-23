@@ -21,12 +21,14 @@ import {
   ArrowRightIcon,
   ArrowLeftIcon,
   Button,
+  useTheme,
 } from 'evergreen-ui';
 import Link from 'next/link';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import AuthButton from '@/lib/hoagie-ui/AuthButton';
 
 export default function Index() {
+  const theme = useTheme();
   const { user, error, isLoading } = useUser();
   let Profile;
   if (isLoading) Profile = <Spinner />;
@@ -38,7 +40,7 @@ export default function Index() {
           <Button
             height={56}
             width={majorScale(35)}
-            appearance='primary'
+            backgroundColor={theme.colors.blue100}
             marginBottom={20}
             iconBefore={ArrowRightIcon}
           >

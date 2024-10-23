@@ -64,7 +64,7 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
       {HeaderComponent ? (
         <HeaderComponent />
       ) : (
-        <Pane width='100%' height={20} background='blue500' />
+        <Pane width='100%' height={20} background={theme.colors.blue500} />
       )}
       <Pane
         display='flex'
@@ -89,14 +89,14 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
                 <LogoComponent />
               ) : (
                 <Pane>
-                  <Text is='h2' display='inline-block' className='hoagie logo' color='grey900'>
+                  <Text is='h2' display='inline-block' className='hoagie logo' color={theme.colors.gray900}>
                     hoagie
                   </Text>
-                  <Text is='h2' display='inline-block' className='hoagie logo' color='blue500'>
+                  <Text is='h2' display='inline-block' className='hoagie logo' color={theme.colors.blue500}>
                     {name}
                   </Text>
                   {beta && (
-                    <Text className='hoagie beta' position='absolute' color='grey900'>
+                    <Text className='hoagie beta' position='absolute' color={theme.colors.gray900}>
                       (BETA)
                     </Text>
                   )}
@@ -108,11 +108,11 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
             <TabNavigation>
               {tabs.map((tab) => (
                 <Tab
-                  key={tab.title} // Key moved to the Tab component
+                  key={tab.title}
                   id={tab.title}
                   isSelected={pathname === tab.href}
                   appearance='primary'
-                  onSelect={() => router.push(tab.href)} // Use onSelect for navigation
+                  onSelect={() => router.push(tab.href)}
                   fontSize={14}
                 >
                   {tab.title}
@@ -123,8 +123,11 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
               <Popover content={<ProfileCard user={user} />} position={Position.BOTTOM}>
                 <Avatar
                   name={username}
-                  style={{ cursor: 'pointer' }}
-                  color={theme.title}
+                  style={{ 
+                    cursor: 'pointer', 
+                    border: `2px solid ${theme.colors.blueTint}`,
+                  }}
+                  backgroundColor={theme.colors.blue100}
                   size={40}
                   marginLeft={majorScale(4)}
                 />

@@ -12,8 +12,8 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // As an example, we will use middleware to implement protected routes.
 // Docs: https://nextjs.org/docs/app/building-your-application/authentication#defining-protected-routes

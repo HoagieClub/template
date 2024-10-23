@@ -14,11 +14,17 @@
 
 import { Pane } from 'evergreen-ui';
 import { ReactNode } from 'react';
+import { useTheme } from 'evergreen-ui';
+import Footer from '@/lib/hoagie-ui/Footer';
 
 function Layout({ children }: { children: ReactNode }) {
+  const theme = useTheme();
   return (
-    <Pane display='flex' flexDirection='column' minHeight='100vh' background='blue100'>
-      {children}
+    <Pane display="flex" flexDirection="column" minHeight="100vh" background={theme.colors.blue100}>
+      <Pane flex="1">{children}</Pane>
+      <Pane>
+        <Footer />
+      </Pane>
     </Pane>
   );
 }
