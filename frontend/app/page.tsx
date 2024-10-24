@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
  *
  * Permission is granted under the MIT License to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software. This software is provided "as-is", without warranty of any kind.
+ * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
 'use client';
@@ -74,6 +74,7 @@ export default function Index() {
         paddingTop={majorScale(5)}
         paddingBottom={majorScale(7)}
       >
+        <ArrowLeftIcon size={48} color='gray800' />
         <Heading size={900} className='hoagie'>
           Hoagie Template App
           <br />

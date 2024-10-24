@@ -18,7 +18,6 @@ import { getSession } from '@auth0/nextjs-auth0';
 
 import Layout from '@/lib/hoagie-ui/Layout';
 import Nav from '@/lib/hoagie-ui/Nav';
-import Footer from '@/lib/hoagie-ui/Footer';
 import Theme from '@/lib/hoagie-ui/Theme';
 import { Toaster } from '@/components/ui/sonner';
 import '@/lib/hoagie-ui/Theme/theme.css';
@@ -68,7 +67,11 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
  * @param children - The child components to render within the layout.
  * @returns JSX Element representing the root HTML structure.
  */
-export default function RootLayout({ children }: { children: ReactNode }): JSX.Element {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) {
   return (
     <html lang='en'>
       <UserProvider>
