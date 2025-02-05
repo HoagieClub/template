@@ -1,7 +1,7 @@
 /**
  * @overview Root layout component for the template app. Styles apply to all children.
  *
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -20,6 +20,7 @@ import Layout from '@/lib/hoagie-ui/Layout';
 import Nav from '@/lib/hoagie-ui/Nav';
 import Theme from '@/lib/hoagie-ui/Theme';
 import { Toaster } from '@/components/ui/sonner';
+import { hoagie } from "./hoagie";
 import '@/lib/hoagie-ui/Theme/theme.css';
 import './globals.css';
 
@@ -74,6 +75,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+          <script
+              dangerouslySetInnerHTML={{
+                  __html: `(${hoagie.toString()})();`,
+              }}
+          />
+      </head>
       <UserProvider>
         <body className='antialiased'>
           <Content>{children}</Content>
