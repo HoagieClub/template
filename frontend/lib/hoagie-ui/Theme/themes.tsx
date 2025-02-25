@@ -1,4 +1,5 @@
 import { defaultTheme, mergeTheme } from 'evergreen-ui';
+
 import Tab from './Tab';
 
 export const hoagieUI = mergeTheme(defaultTheme, {
@@ -19,7 +20,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
     gray90: '#FBFBFB',
     gray75: '#FCFCFC',
     gray50: '#FFFFFF',
-    
+
     blue900: '#0A1433',
     blue800: '#142966',
     blue700: '#1F3D99',
@@ -31,7 +32,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
     blue100: '#D6E0FF',
     blue50: '#EBF0FF',
     blue25: '#F3F6FF',
-    
+
     purple900: '#190C30',
     purple800: '#351E5C',
     purple700: '#58427F',
@@ -77,7 +78,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
     yellow100: '#FFEFD2',
 
     realBlue300: '#85A3FF',
-    
+
     // Default and muted colors
     muted: '#696f8c',
     default: '#474d66',
@@ -116,7 +117,7 @@ export const hoagieUI = mergeTheme(defaultTheme, {
       success: '#52BD95',
       info: '#3366FF',
     },
-    
+
     // Additional custom color
     'hoagie-orange': '#DE7548',
   },
@@ -231,64 +232,120 @@ export const hoagieUI = mergeTheme(defaultTheme, {
   },
 });
 
-export const hoagiePurple = mergeTheme(hoagieUI, {
-  title: 'purple',
+/**
+ * hoagieTemplate - Example theme that extends the base hoagieUI theme
+ *
+ * This template demonstrates how to create a custom theme by extending
+ * the base hoagieUI theme with a new color palette. You can use this
+ * as a starting point for creating your own branded themes.
+ */
+export const hoagieTemplate = mergeTheme(hoagieUI, {
+  title: 'template',
   colors: {
     ...hoagieUI.colors,
-    purple900: '#190C30',
-    purple800: '#351E5C',
-    purple700: '#58427F',
-    purple600: '#6C47AE',
-    purple500: '#8F59EF',
-    purple400: '#A472FC',
-    purple300: '#BFA0F4',
-    purple200: '#D1BAF7',
-    purple100: '#E9DDFE',
-    purple50: '#F5F0FF',
-    purple25: '#F9F5FF',
-    selected: '#8F59EF',
-    tint1: '#FCFAFF',
-    tint2: '#FAF9FC',
-    icon: {
-      selected: '#8F59EF',
-    },
-    text: {
-      info: '#8F59EF',
-    },
-  },
-  shadows: {
-    ...hoagieUI.shadows,
-    focusRing: '0 0 0 2px #E9DDFE',
-  },
-});
+    // Teal color palette - primary brand color
+    teal900: '#0A2E2F',
+    teal800: '#0F5156',
+    teal700: '#146D73',
+    teal600: '#198A91',
+    teal500: '#1EA7AE',
+    teal400: '#4BBDC3',
+    teal300: '#7CE0E6',
+    teal200: '#A9EDF1',
+    teal100: '#D3F5F7',
+    teal50: '#E9FAFB',
+    teal25: '#F4FDFD',
 
-export const hoagieOrange = mergeTheme(hoagieUI, {
-  title: 'orange',
-  colors: {
-    ...hoagieUI.colors,
-    orange900: '#301F0E',
-    orange800: '#593714',
-    orange700: '#7C4813',
-    orange600: '#BC5E00',
-    orange500: '#E77500',
-    orange400: '#FC8C1B',
-    orange300: '#FFB164',
-    orange200: '#FFCB97',
-    orange100: '#FFE3C6',
-    orange50: '#FEE9D2',
-    orange25: '#FFF5EA',
-    selected: '#E77500',
-    tint1: '#F8E9DA',
-    tint2: '#FCFAF9',
+    // Override the selected color to use primary teal
+    selected: '#1EA7AE',
+
+    // Set the tints for custom theme
+    tint1: '#F4FDFD',
+    tint2: '#F9FCFC',
+
     icon: {
-      selected: '#E77500',
+      ...hoagieUI.colors.icon,
+      selected: '#1EA7AE',
     },
+
     text: {
-      info: '#E77500',
+      ...hoagieUI.colors.text,
+      info: '#1EA7AE',
     },
+
+    // Add a custom brand color
+    'hoagie-teal': '#1EA7AE',
   },
+
+  // Have the shadows use our brand color for focus rings
   shadows: {
     ...hoagieUI.shadows,
-    focusRing: '0 0 0 2px #FFE3C6',
+    focusRing: '0 0 0 2px #D3F5F7',
+  },
+
+  // Have the intents use our teal colors
+  intents: {
+    ...hoagieUI.intents,
+    info: {
+      background: '#F4FDFD',
+      border: '#1EA7AE',
+      text: '#0F5156',
+      icon: '#1EA7AE',
+    },
+  },
+
+  // Update component-specific styling
+  components: {
+    ...hoagieUI.components,
+    // Override Button component styling
+    Button: {
+      ...hoagieUI.components.Button,
+      appearances: {
+        ...hoagieUI.components.Button.appearances,
+        primary: {
+          ...hoagieUI.components.Button.appearances.primary,
+          backgroundColor: '#1EA7AE',
+          // Use pseudoSelectors instead of _hover
+          pseudoSelectors: {
+            _hover: {
+              backgroundColor: '#198A91',
+            },
+            _active: {
+              backgroundColor: '#146D73',
+            },
+            _focus: {
+              boxShadow: '0 0 0 2px #D3F5F7',
+            },
+          },
+        },
+      },
+    },
+    // Override Tab component styling
+    Tab: {
+      ...hoagieUI.components.Tab,
+      appearances: {
+        ...hoagieUI.components.Tab.appearances,
+        primary: {
+          ...hoagieUI.components.Tab.appearances.primary,
+
+          // color: '#1EA7AE',
+
+          // Use pseudoSelectors instead of _hover
+          pseudoSelectors: {
+            _hover: {
+              color: '#198A91',
+            },
+            _active: {
+              color: '#146D73',
+            },
+            _current: {
+              color: '#1EA7AE',
+              fontWeight: '500', // Use string instead of number
+            },
+          },
+        },
+      },
+    },
+    // Avatar styling is now handled directly in the components
   },
 });

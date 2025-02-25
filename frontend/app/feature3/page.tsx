@@ -1,7 +1,7 @@
 /**
  * @overview Sample page 3 for the template app.
  *
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -13,9 +13,11 @@
 'use client';
 
 import { useState } from 'react';
+
+import { useUser } from '@auth0/nextjs-auth0';
 import { Text, Heading, Pane, majorScale, Spinner, Button, Alert } from 'evergreen-ui';
 import { toast } from 'sonner';
-import { useUser } from '@auth0/nextjs-auth0/client';
+
 import View from '@/components/View';
 
 /**
@@ -28,7 +30,9 @@ import View from '@/components/View';
  */
 const updateCountAPI = async (value: number): Promise<number> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  if (Math.random() < 0.5) throw new Error('Update failed');
+  if (Math.random() < 0.5) {
+    throw new Error('Update failed');
+  }
   return value;
 };
 
@@ -40,7 +44,7 @@ const updateCountAPI = async (value: number): Promise<number> => {
  *
  * @returns {JSX.Element} The rendered page component.
  */
-export default function Feature3() {
+export function Feature3() {
   const { user, error, isLoading } = useUser();
   const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -70,7 +74,7 @@ export default function Feature3() {
       toast.success('Counter updated', {
         description: `New count is ${result}`,
       });
-    } catch (error) {
+    } catch (_error) {
       toast.error('Update failed', {
         description: 'Could not update the counter. Please try again.',
       });
@@ -119,3 +123,5 @@ export default function Feature3() {
     </View>
   );
 }
+
+export default Feature3;

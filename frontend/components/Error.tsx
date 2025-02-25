@@ -1,7 +1,7 @@
 /**
  * @overview Standardized error handling component for the template app.
- * 
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -13,6 +13,7 @@
 'use client';
 
 import React from 'react';
+
 import { Alert } from 'evergreen-ui';
 
 export type ErrorWithMessage = {
@@ -32,7 +33,9 @@ function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
 
 // Convert any error to ErrorWithMessage type
 function toErrorWithMessage(maybeError: unknown): ErrorWithMessage {
-  if (isErrorWithMessage(maybeError)) return maybeError;
+  if (isErrorWithMessage(maybeError)) {
+    return maybeError;
+  }
 
   try {
     const error = new Error(JSON.stringify(maybeError));

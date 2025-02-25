@@ -10,19 +10,22 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-import { ReactNode } from 'react';
+import '@/app/globals.css';
+import '@/lib/hoagie-ui/Theme/theme.css';
+
+import { type ReactNode, type JSX } from 'react';
+
+import { Auth0Provider } from '@auth0/nextjs-auth0';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { getSession } from '@auth0/nextjs-auth0';
 
+import { Toaster } from '@/components/ui/sonner';
+import { auth0 } from '@/lib/auth0';
 import Layout from '@/lib/hoagie-ui/Layout';
 import Nav from '@/lib/hoagie-ui/Nav';
 import Theme from '@/lib/hoagie-ui/Theme';
-import { Toaster } from '@/components/ui/sonner';
-import { hoagie } from "./hoagie";
-import '@/lib/hoagie-ui/Theme/theme.css';
-import './globals.css';
+
+import { hoagie } from './hoagie';
 
 export const metadata = {
   title: 'Template App by Hoagie',
@@ -41,7 +44,7 @@ interface ContentProps {
  * @returns JSX Element representing the content area.
  */
 async function Content({ children }: ContentProps): Promise<JSX.Element> {
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = session?.user;
 
   const tabs = [
@@ -51,7 +54,7 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
   ];
 
   return (
-    <Theme palette='blue'>
+    <Theme palette='template'>
       <Layout>
         <Nav name='template' tabs={tabs} user={user} />
         {children}
@@ -62,33 +65,36 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
 }
 
 /**
- * RootLayout Component
- * Wraps the entire application with necessary providers and layouts.
+ * The root layout component that wraps all pages in the application.
  *
  * @param children - The child components to render within the layout.
  * @returns JSX Element representing the root HTML structure.
  */
-export default function RootLayout({
+export function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' className='bg-hoagie-teal'>
       <head>
-          <script
-              dangerouslySetInnerHTML={{
-                  __html: `(${hoagie.toString()})();`,
-              }}
-          />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(${hoagie.toString()})();`,
+          }}
+        />
       </head>
-      <UserProvider>
+      <Auth0Provider>
         <body className='antialiased'>
+          {/* Uncomment this to see components re-render. Used for debugging. */}
+          {/* <script src='https://unpkg.com/react-scan/dist/auto.global.js' /> */}
           <Content>{children}</Content>
           <Analytics />
           <SpeedInsights />
         </body>
-      </UserProvider>
+      </Auth0Provider>
     </html>
   );
 }
+
+export default RootLayout;

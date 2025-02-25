@@ -7,6 +7,9 @@ const nextConfig = {
     register: true,
     skipWaiting: true,
   }),
+	experimental: {
+    reactCompiler: true,
+  },
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   images: {
     domains: ['github.com'],

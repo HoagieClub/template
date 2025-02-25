@@ -1,7 +1,7 @@
 /**
  * @overview Simple styling component to ensure the layout is consistent.
- * 
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -10,11 +10,12 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+
 import { Pane } from 'evergreen-ui';
 
 // View is an extremely simple component to make sure that the layout is consistent
-export default function View({ children }: { children: ReactNode }) {
+export function View({ children }: { children: ReactNode }) {
   return (
     <Pane
       display='flex'
@@ -41,3 +42,5 @@ export default function View({ children }: { children: ReactNode }) {
     </Pane>
   );
 }
+
+export default View;

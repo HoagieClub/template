@@ -1,7 +1,7 @@
 /**
  * @overview Sample page 2 for the template app.
  *
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -12,7 +12,10 @@
 
 'use client';
 
-import { useState, ChangeEvent } from 'react';
+import type { ChangeEvent } from 'react';
+import { useState } from 'react';
+
+import { useUser } from '@auth0/nextjs-auth0';
 import {
   Pane,
   Heading,
@@ -25,7 +28,6 @@ import {
   majorScale,
 } from 'evergreen-ui';
 import { toast } from 'sonner';
-import { useUser } from '@auth0/nextjs-auth0/client';
 
 /**
  * A React component that renders a form for user interaction, allowing users to input their name
@@ -35,7 +37,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
  *
  * @returns {JSX.Element} The form component with user interaction elements.
  */
-export default function Feature2() {
+export function Feature2() {
   const { user, error, isLoading } = useUser();
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState('');
@@ -73,7 +75,9 @@ export default function Feature2() {
    * and displays success or error feedback via toast notifications.
    */
   const handleSubmit = async () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
 
     setLoading(true);
     try {
@@ -91,7 +95,7 @@ export default function Feature2() {
           },
         },
       });
-    } catch (error) {
+    } catch (_error) {
       toast.error('An error occurred while submitting the form.');
     } finally {
       setLoading(false);
@@ -164,3 +168,5 @@ export default function Feature2() {
     </Pane>
   );
 }
+
+export default Feature2;

@@ -1,7 +1,7 @@
 /**
  * @overview Theme component for the template app.
- * 
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -12,12 +12,14 @@
 
 'use client';
 
+import type { ReactNode } from 'react';
+
 import { ThemeProvider } from 'evergreen-ui';
-import { ReactNode } from 'react';
-import { hoagiePurple, hoagieOrange, hoagieUI } from './themes';
+
+import { hoagieTemplate, hoagieUI } from './themes';
 
 type ThemeProps = {
-  // Options: "purple", "blue", "orange")
+  // Options: "template")
   palette?: string;
 
   // React children (child components)
@@ -25,17 +27,14 @@ type ThemeProps = {
 };
 
 /**
- * Returns a Hoagie theme based on the provided palette.
- * 
- * @returns {ThemeProvider} A Hoagie-paletted theme provider component.
+ * Theme is a theme provider meant for use throughout
+ * different Hoagie applications.
  */
-function Theme({ palette = 'purple', children }: ThemeProps) {
+export function Theme({ palette = 'template', children }: ThemeProps) {
   const colorTheme = (() => {
     switch (palette) {
-      case 'purple':
-        return hoagiePurple;
-      case 'orange':
-        return hoagieOrange;
+      case 'template':
+        return hoagieTemplate;
       default:
         return hoagieUI;
     }

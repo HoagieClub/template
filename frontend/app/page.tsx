@@ -1,7 +1,7 @@
 /**
  * @overview Landing page for the template app.
- * 
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ *
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -12,6 +12,7 @@
 
 'use client';
 
+import { useUser } from '@auth0/nextjs-auth0';
 import {
   Pane,
   majorScale,
@@ -21,26 +22,29 @@ import {
   ArrowRightIcon,
   ArrowLeftIcon,
   Button,
-  useTheme,
 } from 'evergreen-ui';
 import Link from 'next/link';
-import { useUser } from '@auth0/nextjs-auth0/client';
-import AuthButton from '@/lib/hoagie-ui/AuthButton';
 
-export default function Index() {
-  const theme = useTheme();
+import AuthButton from '@/lib/hoagie-ui/AuthButton';
+import { hoagieTemplate } from '@/lib/hoagie-ui/Theme/themes';
+
+export function Home() {
+  const theme = hoagieTemplate;
   const { user, error, isLoading } = useUser();
+
   let Profile;
-  if (isLoading) Profile = <Spinner />;
-  else if (error) Profile = <div>{error.message}</div>;
-  else if (user) {
+  if (isLoading) {
+    Profile = <Spinner />;
+  } else if (error || !user) {
+    Profile = <AuthButton />;
+  } else {
     Profile = (
       <Pane>
         <Link href='/feature1'>
           <Button
             height={56}
             width={majorScale(35)}
-            backgroundColor={theme.colors.blue100}
+            backgroundColor={theme.colors.teal100}
             marginBottom={20}
             iconBefore={ArrowRightIcon}
           >
@@ -51,7 +55,7 @@ export default function Index() {
         <AuthButton variant='logout' />
       </Pane>
     );
-  } else Profile = <AuthButton />;
+  }
 
   return (
     <Pane
@@ -102,8 +106,10 @@ export default function Index() {
             <br />
           </Pane>
         </div>
-        <div>© 2024 Hoagie Club.</div>
+        <div>© 2025 Hoagie Club.</div>
       </Pane>
     </Pane>
   );
 }
+
+export default Home;

@@ -1,7 +1,7 @@
 /**
  * @overview Navigation bar for the template app with a stateful profile.
  *
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -12,7 +12,9 @@
 
 'use client';
 
-import { ComponentType } from 'react';
+import { type ComponentType } from 'react';
+
+import { type User } from '@auth0/nextjs-auth0/types';
 import {
   majorScale,
   Pane,
@@ -22,14 +24,25 @@ import {
   Avatar,
   TabNavigation,
   Tab,
-  useTheme,
 } from 'evergreen-ui';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
-import ProfileCard from '@/lib/hoagie-ui/ProfileCard';
-import { UserProfile } from '@auth0/nextjs-auth0/client';
 
-export type Nav = {
+import ProfileCard from '@/lib/hoagie-ui/ProfileCard';
+import { hoagieTemplate } from '@/lib/hoagie-ui/Theme/themes';
+
+/**
+ * Interface for tab items in the navigation bar.
+ */
+interface TabItem {
+  title: string;
+  href: string;
+}
+
+/**
+ * Props for the Nav component.
+ */
+interface NavProps {
   // The name of the app for generating the `hoagie{name}` title.
   name: string;
 
@@ -40,21 +53,28 @@ export type Nav = {
   HeaderComponent?: ComponentType;
 
   // A list of tab objects for the navbar, each with `title` and `href` fields.
-  tabs?: Array<any>;
+  tabs?: Array<TabItem>;
 
   // Authenticated user data.
-  user?: UserProfile;
+  user?: User;
 
   // A flag to show the "beta" development disclaimer on the hoagie app logo.
   beta?: boolean;
-};
+}
 
 /**
  * Nav is a navbar meant for internal navigations throughout
  * different Hoagie applications.
  */
-function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = false }: Nav) {
-  const theme = useTheme();
+export function Nav({
+  name,
+  LogoComponent,
+  HeaderComponent,
+  tabs = [],
+  user,
+  beta = false,
+}: NavProps) {
+  const theme = hoagieTemplate;
   const router = useRouter();
   const pathname = usePathname();
   const username = user?.name;
@@ -64,7 +84,7 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
       {HeaderComponent ? (
         <HeaderComponent />
       ) : (
-        <Pane width='100%' height={20} background={theme.colors.blue500} />
+        <Pane width='100%' height={20} background={theme.colors.teal500} />
       )}
       <Pane
         display='flex'
@@ -89,10 +109,20 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
                 <LogoComponent />
               ) : (
                 <Pane>
-                  <Text is='h2' display='inline-block' className='hoagie logo' color={theme.colors.gray900}>
+                  <Text
+                    is='h2'
+                    display='inline-block'
+                    className='hoagie logo'
+                    color={theme.colors.gray900}
+                  >
                     hoagie
                   </Text>
-                  <Text is='h2' display='inline-block' className='hoagie logo' color={theme.colors.blue500}>
+                  <Text
+                    is='h2'
+                    display='inline-block'
+                    className='hoagie logo'
+                    color={theme.colors.teal500}
+                  >
                     {name}
                   </Text>
                   {beta && (
@@ -123,11 +153,11 @@ function Nav({ name, LogoComponent, HeaderComponent, tabs = [], user, beta = fal
               <Popover content={<ProfileCard user={user} />} position={Position.BOTTOM}>
                 <Avatar
                   name={username}
-                  style={{ 
-                    cursor: 'pointer', 
-                    border: `2px solid ${theme.colors.blueTint}`,
+                  style={{
+                    cursor: 'pointer',
+                    border: `2px solid ${theme.colors.tealTint}`,
                   }}
-                  backgroundColor={theme.colors.blue100}
+                  backgroundColor={theme.colors.teal100}
                   size={40}
                   marginLeft={majorScale(4)}
                 />

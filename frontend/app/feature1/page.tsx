@@ -1,7 +1,7 @@
 /**
  * @overview Sample page 1 for the template app.
  *
- * Copyright © 2021-2024 Hoagie Club and affiliates.
+ * Copyright © 2021-2025 Hoagie Club and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree or at https://github.com/hoagieclub/template/LICENSE.
@@ -13,67 +13,47 @@
 'use client';
 
 import { useState } from 'react';
+
+import { useUser } from '@auth0/nextjs-auth0';
 import { RadioGroup, Text, Heading, Pane, majorScale, Spinner, Button, Alert } from 'evergreen-ui';
 import Link from 'next/link';
-import { useUser } from '@auth0/nextjs-auth0/client';
+
 import View from '@/components/View';
 
-export default function Feature1() {
+export function Feature1() {
   const { user, error, isLoading } = useUser();
+  const [optionValue, setOptionValue] = useState('docs');
 
   // If the user data is loading, show a spinner.
-  if (isLoading) return <Spinner />;
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   // If there is an error, display the error message.
-  if (error) return <div>{error.message}</div>;
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
-  // Option 1: Documentation information.
-  const option1 = (
-    <Pane>
-      <Text size={500}>
-        <b>Documentation</b>
-        <br />
-      </Text>
-      <Text size={400}>
-        Exceptional software engineers <b>devour</b> documentation. Read the Hoagie docs!
-      </Text>
-    </Pane>
-  );
+  // Define the options with simple text labels
+  const options = [
+    { label: 'Documentation', value: 'docs' },
+    { label: 'UI Library', value: 'ui' },
+    { label: 'Components Library', value: 'components' },
+  ];
 
-  // Option 2: UI Library information.
-  const option2 = (
-    <Pane>
-      <Text size={500}>
-        <b>UI Library</b>
-        <br />
-      </Text>
-      <Text size={400}>
-        Our UI Design is mainly powered by the <b>Evergreen</b> library.
-      </Text>
-    </Pane>
-  );
-
-  // Option 3: Components Library information.
-  const option3 = (
-    <Pane>
-      <Text size={500}>
-        <b>Components Library</b>
-        <br />
-      </Text>
-      <Text size={400}>
-        Complementary to Evergreen, we use the <b>ShadCN</b> library to compose beautiful
-        components.
-      </Text>
-    </Pane>
-  );
-
-  // State for radio group options and selected value.
-  const [options] = useState([
-    { label: option1, value: 'docs' },
-    { label: option2, value: 'ui' },
-    { label: option3, value: 'components' },
-  ]);
-  const [optionValue, setOptionValue] = useState('docs');
+  // Define the descriptions for each option
+  const getOptionDescription = (value: string) => {
+    switch (value) {
+      case 'docs':
+        return 'Exceptional software engineers devour documentation. Read the Hoagie docs!';
+      case 'ui':
+        return 'Our UI Design is mainly powered by the Evergreen library.';
+      case 'components':
+        return 'Complementary to Evergreen, we use the ShadCN library to compose beautiful components.';
+      default:
+        return '';
+    }
+  };
 
   /**
    * Returns the appropriate URL based on the selected option.
@@ -124,6 +104,11 @@ export default function Feature1() {
         marginTop={majorScale(3)}
         onChange={(event) => setOptionValue(event.target.value)}
       />
+
+      {/* Display the description for the selected option */}
+      <Pane marginTop={majorScale(2)}>
+        <Text size={400}>{getOptionDescription(optionValue)}</Text>
+      </Pane>
     </Pane>
   );
 
@@ -139,3 +124,5 @@ export default function Feature1() {
     </View>
   );
 }
+
+export default Feature1;
