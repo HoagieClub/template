@@ -28,5 +28,5 @@ import { twMerge } from 'tailwind-merge';
  * @returns {string} The final merged class name string that can be applied to a component.
  */
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+	return twMerge(clsx(inputs));
 }

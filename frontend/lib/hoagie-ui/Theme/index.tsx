@@ -19,11 +19,11 @@ import { ThemeProvider } from 'evergreen-ui';
 import { hoagieTemplate, hoagieUI } from './themes';
 
 type ThemeProps = {
-  // Options: "template")
-  palette?: string;
+	// Options: "template")
+	palette?: string;
 
-  // React children (child components)
-  children?: ReactNode;
+	// React children (child components)
+	children?: ReactNode;
 };
 
 /**
@@ -31,16 +31,16 @@ type ThemeProps = {
  * different Hoagie applications.
  */
 export function Theme({ palette = 'template', children }: ThemeProps) {
-  const colorTheme = (() => {
-    switch (palette) {
-      case 'template':
-        return hoagieTemplate;
-      default:
-        return hoagieUI;
-    }
-  })();
+	const colorTheme = (() => {
+		switch (palette) {
+			case 'template':
+				return hoagieTemplate;
+			default:
+				return hoagieUI;
+		}
+	})();
 
-  return <ThemeProvider value={colorTheme}>{children}</ThemeProvider>;
+	return <ThemeProvider value={colorTheme}>{children}</ThemeProvider>;
 }
 
 export default Theme;

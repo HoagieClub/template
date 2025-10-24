@@ -12,33 +12,38 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
+
 import { auth0 } from './lib/auth0';
 
-export async function middleware(request: NextRequest) {
-  const authRes = await auth0.middleware(request);
+import type { NextRequest } from 'next/server';
 
-  // Authentication routes — let the middleware handle it
-  if (request.nextUrl.pathname.startsWith('/auth')) {
-    return authRes;
-  }
+export async function proxy(request: NextRequest) {
+	const authRes = await auth0.middleware(request);
 
-  // Check if the user is trying to access one of the protected routes
-  if (request.nextUrl.pathname.startsWith('/feature1') || 
-      request.nextUrl.pathname.startsWith('/feature2') || 
-      request.nextUrl.pathname.startsWith('/feature3')) {
-    
-    const { origin } = new URL(request.url);
-    const session = await auth0.getSession();
+	// Authentication routes — let the middleware handle it
+	if (request.nextUrl.pathname.startsWith('/auth')) {
+		return authRes;
+	}
 
-    // User does not have a session — redirect to login
-    if (!session) {
-      return NextResponse.redirect(`${origin}/auth/login?returnTo=${request.nextUrl.pathname}`);
-    }
-  }
+	// Check if the user is trying to access one of the protected routes
+	if (
+		request.nextUrl.pathname.startsWith('/feature1') ||
+		request.nextUrl.pathname.startsWith('/feature2') ||
+		request.nextUrl.pathname.startsWith('/feature3')
+	) {
+		const { origin } = new URL(request.url);
+		const session = await auth0.getSession();
 
-  return authRes;
+		// User does not have a session — redirect to login
+		if (!session) {
+			return NextResponse.redirect(
+				`${origin}/auth/login?returnTo=${request.nextUrl.pathname}`
+			);
+		}
+	}
+
+	return authRes;
 }
 
 // Apply this middleware to all routes except static assets

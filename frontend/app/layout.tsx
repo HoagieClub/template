@@ -28,12 +28,12 @@ import Theme from '@/lib/hoagie-ui/Theme';
 import { hoagie } from './hoagie';
 
 export const metadata = {
-  title: 'Template App by Hoagie',
-  description: 'Build the next big thing.',
+	title: 'Template App by Hoagie',
+	description: 'Build the next big thing.',
 };
 
 interface ContentProps {
-  children: ReactNode;
+	children: ReactNode;
 }
 
 /**
@@ -44,24 +44,24 @@ interface ContentProps {
  * @returns JSX Element representing the content area.
  */
 async function Content({ children }: ContentProps): Promise<JSX.Element> {
-  const session = await auth0.getSession();
-  const user = session?.user;
+	const session = await auth0.getSession();
+	const user = session?.user;
 
-  const tabs = [
-    { title: 'Feature 1', href: '/feature1' },
-    { title: 'Feature 2', href: '/feature2' },
-    { title: 'Feature 3', href: '/feature3' },
-  ];
+	const tabs = [
+		{ title: 'Feature 1', href: '/feature1' },
+		{ title: 'Feature 2', href: '/feature2' },
+		{ title: 'Feature 3', href: '/feature3' },
+	];
 
-  return (
-    <Theme palette='template'>
-      <Layout>
-        <Nav name='template' tabs={tabs} user={user} />
-        {children}
-        <Toaster />
-      </Layout>
-    </Theme>
-  );
+	return (
+		<Theme palette='template'>
+			<Layout>
+				<Nav name='template' tabs={tabs} user={user} />
+				{children}
+				<Toaster />
+			</Layout>
+		</Theme>
+	);
 }
 
 /**
@@ -71,30 +71,30 @@ async function Content({ children }: ContentProps): Promise<JSX.Element> {
  * @returns JSX Element representing the root HTML structure.
  */
 export function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: ReactNode;
+	children: ReactNode;
 }>) {
-  return (
-    <html lang='en' className='bg-hoagie-teal'>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(${hoagie.toString()})();`,
-          }}
-        />
-      </head>
-      <Auth0Provider>
-        <body className='antialiased'>
-          {/* Uncomment this to see components re-render. Used for debugging. */}
-          {/* <script src='https://unpkg.com/react-scan/dist/auto.global.js' /> */}
-          <Content>{children}</Content>
-          <Analytics />
-          <SpeedInsights />
-        </body>
-      </Auth0Provider>
-    </html>
-  );
+	return (
+		<html lang='en' className='bg-hoagie-teal'>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `(${hoagie.toString()})();`,
+					}}
+				/>
+			</head>
+			<Auth0Provider>
+				<body className='antialiased'>
+					{/* Uncomment this to see components re-render. Used for debugging. */}
+					{/* <script src='https://unpkg.com/react-scan/dist/auto.global.js' /> */}
+					<Content>{children}</Content>
+					<Analytics />
+					<SpeedInsights />
+				</body>
+			</Auth0Provider>
+		</html>
+	);
 }
 
 export default RootLayout;

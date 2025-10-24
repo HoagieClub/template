@@ -1,6 +1,6 @@
-/* eslint-disable no-irregular-whitespace */
 export function hoagie() {
-  console.log(`
+	// eslint-disable-next-line no-console
+	console.log(`
     █░█ █▀█ ▄▀█ █▀▀ █ █▀▀
     █▀█ █▄█ █▀█ █▄█ █ ██▄
     `);

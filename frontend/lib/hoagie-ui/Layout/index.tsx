@@ -20,15 +20,20 @@ import Footer from '@/lib/hoagie-ui/Footer';
 import { hoagieTemplate } from '@/lib/hoagie-ui/Theme/themes';
 
 export function Layout({ children }: { children: ReactNode }) {
-  const theme = hoagieTemplate;
-  return (
-    <Pane display='flex' flexDirection='column' minHeight='100vh' background={theme.colors.teal100}>
-      <Pane flex='1'>{children}</Pane>
-      <Pane>
-        <Footer />
-      </Pane>
-    </Pane>
-  );
+	const theme = hoagieTemplate;
+	return (
+		<Pane
+			display='flex'
+			flexDirection='column'
+			minHeight='100vh'
+			background={theme.colors.teal100}
+		>
+			<Pane flex='1'>{children}</Pane>
+			<Pane>
+				<Footer />
+			</Pane>
+		</Pane>
+	);
 }
 
 export default Layout;
