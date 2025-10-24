@@ -38,7 +38,7 @@
 		"next-env.d.ts",
 		"**/*.ts",
 		"**/*.tsx",
-		"postcss.config.ts,",
+		"postcss.config.mjs",
 		".next/types/**/*.ts",
 		"eslint.config.ts",
 		".prettierrc",

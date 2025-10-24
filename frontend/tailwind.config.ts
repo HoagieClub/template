@@ -19,6 +19,7 @@ const config: Config = {
 		'./components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
+	important: true,
 	theme: {
 		extend: {
 			colors: {
@@ -70,6 +71,6 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [require('tailwindcss-animate')],
+	plugins: [require('tailwindcss-animate'), require('@tailwindcss/forms')],
 };
 export default config;

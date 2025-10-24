@@ -10,11 +10,11 @@
  * and/or sell copies of the software. This software is provided "as-is", without warranty of any kind.
  */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
 
 @layer base {
 	:root {
@@ -118,7 +118,7 @@
 		display: inline-block;
 		top: 22px;
 		right: -38px;
-		@apply text-xs font-bold !important;
+		@apply text-xs font-bold;
 	}
 }
 
